@@ -14,6 +14,7 @@ use SCart\Core\Admin\Models\AdminCustomer;
 use SCart\Core\Admin\Models\AdminOrder;
 use SCart\Core\Admin\Models\AdminProduct;
 use SCart\Core\Front\Models\ShopOrderTotal;
+use SCart\Core\Front\Models\ShopOrder;
 use Validator;
 
 class AdminOrderController extends RootAdminController
@@ -35,7 +36,7 @@ class AdminOrderController extends RootAdminController
         $this->currency       = ShopCurrency::getListActive();
         $this->country        = ShopCountry::getCodeAll();
         $this->statusPayment  = ShopPaymentStatus::getIdAll();
-        $this->statusShipping = ShopShippingStatus::getIdAll();
+        $this->statusShipping = ShopShippingStatus::getIdAll();   
     }
 
     /**
@@ -237,6 +238,7 @@ class AdminOrderController extends RootAdminController
             'title_description' => sc_language_render('order.admin.add_new_des'),
             'icon'              => 'fa fa-plus',
         ];
+        
         $paymentMethod = [];
         $shippingMethod = [];
         $paymentMethodTmp = sc_get_plugin_installed('payment', $onlyActive = false);
@@ -247,6 +249,7 @@ class AdminOrderController extends RootAdminController
         foreach ($shippingMethodTmp as $key => $value) {
             $shippingMethod[$key] = sc_language_render($value->detail);
         }
+        // $numberPackage = 0;
         $orderStatus            = $this->statusOrder;
         $currencies             = $this->currency;
         $countries              = $this->country;
@@ -259,6 +262,7 @@ class AdminOrderController extends RootAdminController
         $data['currenciesRate'] = $currenciesRate;
         $data['paymentMethod']  = $paymentMethod;
         $data['shippingMethod'] = $shippingMethod;
+        // $data['number_package'] = $numberPackage;
 
         return view($this->templatePathAdmin.'screen.order_add')
             ->with($data);
@@ -357,6 +361,7 @@ class AdminOrderController extends RootAdminController
             'exchange_rate'   => $data['exchange_rate'],
             'email'           => $data['email'],
             'comment'         => $data['comment'],
+            'number_package'  => $data['number_package'],
         ];
         $dataCreate = sc_clean($dataCreate, [], true);
         $order = AdminOrder::create($dataCreate);
@@ -744,9 +749,12 @@ class AdminOrderController extends RootAdminController
         $orderId = request('order_id') ?? null;
         $action = request('action') ?? '';
         $order = AdminOrder::getOrderAdmin($orderId);
+        $totalOrder = AdminOrder::getTotalOrderdata();
+
         if ($order) {
             $data                    = array();
             $data['name']            = $order['first_name'] . ' ' . $order['last_name'];
+            $data['company']         = $order['company']; 
             $data['address1']         = $order['address1'];
             $data['address2']         = $order['address2'];
             $data['address3']         = $order['address3'];
@@ -769,7 +777,9 @@ class AdminOrderController extends RootAdminController
             $data['other_fee']       = $order['other_fee'] ?? 0;
             $data['comment']         = $order['comment'];
             $data['country']         = $order['country'];
+            $data['number_package']  = $order['number_package'];
             $data['id']              = $order->id;
+            $data['invoice_number']  = $totalOrder[0]['invoice_number'];
             $data['details'] = [];
 
             $attributesGroup =  ShopAttributeGroup::pluck('name', 'id')->all();
@@ -804,6 +814,15 @@ class AdminOrderController extends RootAdminController
                 $options = ['filename' => 'Order ' . $orderId];
                 return \Export::export($action, $data, $options);
             }
+            $updated_number = $totalOrder[0]['invoice_number'] + 1;
+            var_dump($updated_number); 
+
+            $records = ShopOrder::all();
+            foreach($records as $record) {
+                $record->invoice_number = $updated_number;
+                $record->save();
+            }
+            
             
             return view($this->templatePathAdmin.'format.invoice')
             ->with($data);

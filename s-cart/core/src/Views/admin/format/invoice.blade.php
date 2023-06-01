@@ -20,8 +20,8 @@
 <i class="fas fa-map-marker-alt"></i>&nbsp;&nbsp;{{ $address1 }},<br/>&nbsp;&nbsp;{{ $address2 }},<br/>&nbsp;&nbsp;{{ $address3 }}{{ $country }},
 </tr>
 <tr>
-<td class="cell2"><p style="font-size:13px;line-height:16px;">&nbsp;<span style="font-size:12px;line-height:13.5px;">Contact Name / Nom de la personne - resource</span></p></td>
-<td colspan="2" class="cell3"><p><span style="font-size:13px;line-height:16px;">&nbsp;</span>Contact Name / Nom de la personne - resource</p></td>
+<td class="cell2"><p style="font-size:13px;line-height:16px;">&nbsp;<span style="font-size:12px;line-height:13.5px;">Contact Name / Nom de la personne - {{$company}}</span></p></td>
+<td colspan="2" class="cell3"><p><span style="font-size:13px;line-height:16px;">&nbsp;</span>Contact Name / Nom de la personne - {{$name}}</p></td>
 </tr>
 <tr>
 <td class="cell2"><p><span style="font-size:13px;line-height:16px;">&nbsp;</span>Telephone Number / Numero de téléphone </p>
@@ -39,7 +39,7 @@
 <td class="cell6"><p><span style="font-size:13px;line-height:16px;">&nbsp;</span>Reason for Export / Raison de l'exportation</p>
 <p style="font-size:13px;line-height:16px;">&nbsp;</p>
 <p style="font-size:13px;line-height:16px;">&nbsp;</p></td>
-<td class="cell7"><p style="font-size:13px;line-height:16px;">&nbsp;<span style="font-size:12px;line-height:13.5px;">Number of Packages / Nombre de colis</span></p></td>
+<td class="cell7"><p style="font-size:13px;line-height:16px;">&nbsp;<span style="font-size:12px;line-height:13.5px;">Number of Packages / Nombre de colis</span> <br/><span style="margin-left: 20%"> {{$number_package}}</span></p></td>
 <td class="cell8"><p>Gross Weight / Poids brut</p> <p style="margin-left: 20%">{{$total_weight}}</p></td>
 </tr>
 <tr>
@@ -48,7 +48,7 @@
 <p style="font-family:Arial;">&nbsp; Licence No. / No de licence&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Certificate No. No. de certificat&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; Invoice No. / No de la facture #{{ $id }}</p></td>
 </tr>
 </table>
-<table style="position:absolute;left:23px;top:588px;width:963px;height:506px;z-index:1;" id="Table2">
+<table style="position:absolute;left:23px;top:588px;width:963px;z-index:1;" id="Table2">
 <tr>
 <td class="cell0"><p>Quantity</p>
 <p>Quantité</p></td>
@@ -83,7 +83,7 @@
 <table style="position:absolute;left:20px;top:0px;width:968px;height:56px;z-index:2;" id="Table3">
 <tr>
 <td class="cell0"><p style="font-size:13px;line-height:16px;">&nbsp;</p>
-<p style="font-size:21px;line-height:24.5px;font-weight:bold;">COMMERCIAL INVOICE /CN23&nbsp;&nbsp; &nbsp;&nbsp; FACTURE COMMERCIAL / CN23</p></td>
+<p style="font-size:21px;line-height:24.5px;font-weight:bold;">COMMERCIAL INVOICE /{{$invoice_number}}&nbsp;&nbsp; &nbsp;&nbsp; FACTURE COMMERCIAL / {{$invoice_number}}</p></td>
 </tr>
 </table>
 <table style="position:absolute;left:27px;top:1094px;width:959px;height:145px;z-index:3;" id="Table4">

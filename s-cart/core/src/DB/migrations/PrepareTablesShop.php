@@ -45,6 +45,15 @@ class PrepareTablesShop extends Migration
                 
             }
         );
+
+        Schema::create(
+            SC_DB_PREFIX.'shop_invoice',
+            function (Blueprint $table) {
+                $table->increments('id');
+                $table->integer('number')->default(0000);
+                $table->timestamps();
+            }
+        );
         
 
         Schema::create(
@@ -228,11 +237,14 @@ class PrepareTablesShop extends Migration
                 $table->integer('payment_status')->default(1);
                 $table->integer('shipping_status')->default(1);
                 $table->integer('status')->default(0);
+                $table->integer('number_package')->default(0);
+                $table->integer('invoice_number')->default(0000);
                 $table->decimal('tax',15,2)->nullable()->default(0);
                 $table->decimal('other_fee',15,2)->nullable()->default(0);
                 $table->decimal('total',15,2)->nullable()->default(0);
                 $table->string('currency', 10);
                 $table->decimal('exchange_rate',15,2)->nullable();
+                $table->decimal('price')->default(0);
                 $table->decimal('received',15,2)->nullable()->default(0);
                 $table->decimal('balance',15,2)->nullable()->default(0);
                 $table->string('first_name', 100);

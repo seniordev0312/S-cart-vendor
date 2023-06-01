@@ -279,6 +279,25 @@
                                 </div>
                             </div>
 
+                            <div class="form-group row">
+                                <label for="number_package" class="col-sm-2 col-form-label">Number of package</label>
+                                <div class="col-sm-8">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fas fa-pencil-alt"></i></span>
+                                        </div>
+                                        <input type="text" id="number_package" name="number_package" value="{{ old('number_package') }}" class="form-control number_package" placeholder="" />
+                                    </div>
+                                        @if ($errors->has('number_package'))
+                                            <span class="text-sm">
+                                                {{ $errors->first('number_package') }}
+                                            </span>
+                                        @endif
+                                </div>
+                            </div>
+
+                            
+
                             <div class="form-group row  {{ $errors->has('exchange_rate') ? ' text-red' : '' }}">
                                 <label for="exchange_rate" class="col-sm-2 col-form-label">{{ sc_language_render('order.exchange_rate') }}</label>
                                 <div class="col-sm-8">

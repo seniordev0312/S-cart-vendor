@@ -4,6 +4,7 @@ namespace SCart\Core\Admin\Models;
 
 use SCart\Core\Front\Models\ShopOrder;
 use SCart\Core\Front\Models\ShopOrderTotal;
+
 use Cache;
 
 class AdminOrder extends ShopOrder
@@ -33,6 +34,12 @@ class AdminOrder extends ShopOrder
         }
         return $data->first();
     }
+
+    // public static function getInvoiceNumber()
+    // {
+    //     $data  = self->get()->toArray();
+    //     return $data->first();
+    // }
 
     /**
      * Get list order in admin
@@ -339,6 +346,15 @@ class AdminOrder extends ShopOrder
     public static function getTotalOrder()
     {
         return self::count();
+    }
+
+    public static function getTotalOrderdata() {
+        return self::all();
+    }
+
+    public static function updateInvoiceNumber($number) {
+        ShopOrder->update(['invoice_number' => $number]);
+        return 1;
     }
 
 
