@@ -40,7 +40,7 @@
 <p style="font-size:13px;line-height:16px;">&nbsp;</p>
 <p style="font-size:13px;line-height:16px;">&nbsp;</p></td>
 <td class="cell7"><p style="font-size:13px;line-height:16px;">&nbsp;<span style="font-size:12px;line-height:13.5px;">Number of Packages / Nombre de colis</span></p></td>
-<td class="cell8"><p>Gross Weight / Poids brut</p></td>
+<td class="cell8"><p>Gross Weight / Poids brut</p> <p style="margin-left: 20%">{{$total_weight}}</p></td>
 </tr>
 <tr>
 <td colspan="3" class="cell9"><p>&nbsp;&nbsp;<span style="font-size:12px;line-height:13.5px;">Additional Information&nbsp; /&nbsp; Information additionelle</span></p>
