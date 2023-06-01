@@ -52,8 +52,8 @@
 <tr>
 <td class="cell0"><p>Quantity</p>
 <p>Quantité</p></td>
-<td class="cell1"><p style="margin:0 0 0 156px;">Description of Contents</p>
-<p style="margin:0 0 0 156px;">Description du contenu</p></td>
+<td class="cell1"><p style="text-align: center">Description of Contents</p>
+<p style="text-align: center">Description du contenu</p></td>
 <td class="cell2"><p>HS Tariff Code</p>
 <p style="font-size:12px;line-height:13.5px;"><span style="font-size:11px;line-height:12px;">Code tarif SH</span></p></td>
 <td class="cell2"><p>Country of Origin</p>
@@ -65,19 +65,19 @@
 </tr>
     @foreach ($details as $detail)
         <tr>
-            <td>{{ $detail['qty'] }}</td>
-            <td>{{ $detail['name'] }}</td>
-            <td></td> <!-- HS Tariff Code -->
-            <td></td> <!--Country of Origin -->
-            <td></td> <!--Net Weight (kg) -->
-            <td>{{ number_format($detail['price']) }}</td>
+            <td class="cell0">{{ $detail['qty'] }}</td>
+            <td class="cell0">{{ $detail['name'] }}</td>
+            <td class="cell0"></td> <!-- HS Tariff Code -->
+            <td class="cell0"></td> <!--Country of Origin -->
+            <td class="cell0">{{ $detail['qty'] }}</td> <!--Net Weight (kg) -->
+            <td class="cell0">{{ number_format($detail['price']) }}</td>
         </tr>
     @endforeach
 <tr>
 <td colspan="2" class="cell9"><p style="margin:0 0 0 504px;font-family:Arial;font-size:13px;line-height:16px;"><span style="font-family:arial;font-size:16px;line-height:18px;font-weight:bold;">&nbsp;</span><span style="font-family:arial;font-size:16px;line-height:18px;font-weight:bold;">&nbsp; TOTAL</span></p></td>
 <td colspan="3" class="cell10"><p style="margin:0 0 0 180px;">Currency &amp; Value</p>
 <p style="margin:0 0 0 180px;font-family:Arial;font-size:13px;line-height:16px;"><span style="font-family:arial;font-size:11px;line-height:12px;">Device et valeur</span></p></td>
-<td class="cell11"><p style="font-size:13px;line-height:16px;">&nbsp;</p></td>
+<td class="cell11"><p style="font-size:13px;line-height:16px;">{{$total_price}}</p></td>
 </tr>
 </table>
 <table style="position:absolute;left:20px;top:0px;width:968px;height:56px;z-index:2;" id="Table3">

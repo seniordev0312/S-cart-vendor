@@ -774,6 +774,7 @@ class AdminOrderController extends RootAdminController
 
             $attributesGroup =  ShopAttributeGroup::pluck('name', 'id')->all();
             $data['total_weight'] = 0;
+            $data['total_price'] = 0;
             if ($order->details) {
                 foreach ($order->details as $key => $detail) {
                     $arrAtt = json_decode($detail->attribute, true);
@@ -795,6 +796,7 @@ class AdminOrderController extends RootAdminController
                         'total_price' => $detail->total_price,
                     ];
                     $data['total_weight'] += $detail->qty;
+                    $data['total_price'] += $detail->price;
                 }
             }
 
