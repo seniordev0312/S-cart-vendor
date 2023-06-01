@@ -747,7 +747,10 @@ class AdminOrderController extends RootAdminController
         if ($order) {
             $data                    = array();
             $data['name']            = $order['first_name'] . ' ' . $order['last_name'];
-            $data['address']         = $order['address1'] . ', ' . $order['address2'] . ', ' . $order['address3'].', '.$order['country'];
+            $data['address1']         = $order['address1'];
+            $data['address2']         = $order['address2'];
+            $data['address3']         = $order['address3'];
+            $data['country']         = $order['country'];
             $data['phone']           = $order['phone'];
             $data['email']           = $order['email'];
             $data['comment']         = $order['comment'];

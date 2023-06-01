@@ -17,7 +17,7 @@
 <td colspan="2" class="cell1"><p><span style="font-size:13px;line-height:16px;">&nbsp;</span>Receiver Name &amp; Address / Nom et adresse du destinataire</p>
 <br>
 <span class="text-sm text-grey-m2 align-middle">&nbsp;&nbsp;{{ $name }}<br/></span>
-<i class="fas fa-map-marker-alt"></i>&nbsp;&nbsp;{{ $address }},<br/>&nbsp;&nbsp;{{ $country }}
+<i class="fas fa-map-marker-alt"></i>&nbsp;&nbsp;{{ $address1 }},<br/>&nbsp;&nbsp;{{ $address2 }},<br/>&nbsp;&nbsp;{{ $address3 }}{{ $country }},
 </tr>
 <tr>
 <td class="cell2"><p style="font-size:13px;line-height:16px;">&nbsp;<span style="font-size:12px;line-height:13.5px;">Contact Name / Nom de la personne - resource</span></p></td>
