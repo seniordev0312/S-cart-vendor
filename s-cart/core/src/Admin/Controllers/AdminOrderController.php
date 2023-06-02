@@ -779,7 +779,6 @@ class AdminOrderController extends RootAdminController
             $data['country']         = $order['country'];
             $data['number_package']  = $order['number_package'];
             $data['id']              = $order->id;
-            $data['invoice_number']  = $totalOrder[0]['invoice_number'];
             $data['details'] = [];
 
             $attributesGroup =  ShopAttributeGroup::pluck('name', 'id')->all();
@@ -814,14 +813,7 @@ class AdminOrderController extends RootAdminController
                 $options = ['filename' => 'Order ' . $orderId];
                 return \Export::export($action, $data, $options);
             }
-            $updated_number = $totalOrder[0]['invoice_number'] + 1;
-            var_dump($updated_number); 
-
-            $records = ShopOrder::all();
-            foreach($records as $record) {
-                $record->invoice_number = $updated_number;
-                $record->save();
-            }
+            
             
             
             return view($this->templatePathAdmin.'format.invoice')

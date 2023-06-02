@@ -352,11 +352,6 @@ class AdminOrder extends ShopOrder
         return self::all();
     }
 
-    public static function updateInvoiceNumber($number) {
-        ShopOrder->update(['invoice_number' => $number]);
-        return 1;
-    }
-
 
     /**
      * Get count order new

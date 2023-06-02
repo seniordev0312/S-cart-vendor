@@ -45,7 +45,7 @@
 <tr>
 <td colspan="3" class="cell9"><p>&nbsp;&nbsp;<span style="font-size:12px;line-height:13.5px;">Additional Information&nbsp; /&nbsp; Information additionelle</span></p>
 <br>
-<p style="font-family:Arial;">&nbsp; Licence No. / No de licence&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Certificate No. No. de certificat&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; Invoice No. / No de la facture #{{ $id }}</p></td>
+<p style="font-family:Arial;">&nbsp; Licence No. / No de licence&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Certificate No. No. de certificat&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; Invoice: {{$id}}</p></td>
 </tr>
 </table>
 <table style="position:absolute;left:23px;top:588px;width:963px;z-index:1;" id="Table2">
@@ -83,7 +83,7 @@
 <table style="position:absolute;left:20px;top:0px;width:968px;height:56px;z-index:2;" id="Table3">
 <tr>
 <td class="cell0"><p style="font-size:13px;line-height:16px;">&nbsp;</p>
-<p style="font-size:21px;line-height:24.5px;font-weight:bold;">COMMERCIAL INVOICE /{{$invoice_number}}&nbsp;&nbsp; &nbsp;&nbsp; FACTURE COMMERCIAL / {{$invoice_number}}</p></td>
+<p style="font-size:21px;line-height:24.5px;font-weight:bold;">COMMERCIAL INVOICE /CN23&nbsp;&nbsp; &nbsp;&nbsp; FACTURE COMMERCIAL / CN23</p></td>
 </tr>
 </table>
 <table style="position:absolute;left:27px;top:1094px;width:959px;height:145px;z-index:3;" id="Table4">

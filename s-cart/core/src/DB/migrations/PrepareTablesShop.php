@@ -238,7 +238,6 @@ class PrepareTablesShop extends Migration
                 $table->integer('shipping_status')->default(1);
                 $table->integer('status')->default(0);
                 $table->integer('number_package')->default(0);
-                $table->integer('invoice_number')->default(0000);
                 $table->decimal('tax',15,2)->nullable()->default(0);
                 $table->decimal('other_fee',15,2)->nullable()->default(0);
                 $table->decimal('total',15,2)->nullable()->default(0);
