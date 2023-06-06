@@ -33,7 +33,14 @@ class ShopProduct extends Model
     protected $sc_supplier = []; // array supplier id
     protected $sc_range_price = null; // min__max
     protected static $storeCode = null;
+    protected static $listStatus = null;
 
+
+    public static function getIdAll()
+    {
+            self::$listStatus = self::pluck('id', 'weight')->all();
+        return self::$listStatus;
+    }
     
     public function brand()
     {
@@ -83,6 +90,7 @@ class ShopProduct extends Model
     {
         return $this->hasOne(ShopProductDownload::class, 'product_id', 'id');
     }
+    
 
     //Function get text description
     public function getText()

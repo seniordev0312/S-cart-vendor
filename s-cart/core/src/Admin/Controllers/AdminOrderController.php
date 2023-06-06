@@ -15,6 +15,7 @@ use SCart\Core\Admin\Models\AdminOrder;
 use SCart\Core\Admin\Models\AdminProduct;
 use SCart\Core\Front\Models\ShopOrderTotal;
 use SCart\Core\Front\Models\ShopOrder;
+use SCart\Core\Front\Models\ShopProduct;
 use Validator;
 
 class AdminOrderController extends RootAdminController
@@ -28,6 +29,7 @@ class AdminOrderController extends RootAdminController
     public $currency;
     public $country;
     public $countryMap;
+    public $shopProduct;
 
     public function __construct()
     {
@@ -36,6 +38,7 @@ class AdminOrderController extends RootAdminController
         $this->currency       = ShopCurrency::getListActive();
         $this->country        = ShopCountry::getCodeAll();
         $this->statusPayment  = ShopPaymentStatus::getIdAll();
+        $this->shopProduct    = ShopProduct::getIdAll();
         $this->statusShipping = ShopShippingStatus::getIdAll();   
     }
 
@@ -784,6 +787,7 @@ class AdminOrderController extends RootAdminController
             $attributesGroup =  ShopAttributeGroup::pluck('name', 'id')->all();
             $data['total_weight'] = 0;
             $data['total_price'] = 0;
+
             if ($order->details) {
                 foreach ($order->details as $key => $detail) {
                     $arrAtt = json_decode($detail->attribute, true);
@@ -796,6 +800,12 @@ class AdminOrderController extends RootAdminController
                     } else {
                         $name = $detail->name;
                     }
+                    $weight = 0;
+                    foreach($this->shopProduct as $key => $product) {
+                        if($product == $detail->product_id) {
+                            $weight = $key;
+                        }
+                    }
                     $data['details'][] = [
                         'no' => $key + 1, 
                         'sku' => $detail->sku, 
@@ -803,11 +813,14 @@ class AdminOrderController extends RootAdminController
                         'qty' => $detail->qty, 
                         'price' => $detail->price, 
                         'total_price' => $detail->total_price,
+                        'weight' => $weight,
                     ];
-                    $data['total_weight'] += $detail->qty;
+                    $data['total_weight'] += $weight;
                     $data['total_price'] += $detail->price;
                 }
             }
+
+            // var_dump($data); exit;
 
             if ($action =='invoice_excel') {
                 $options = ['filename' => 'Order ' . $orderId];

@@ -69,7 +69,7 @@
             <td class="cell0">{{ $detail['name'] }}</td>
             <td class="cell0"></td> <!-- HS Tariff Code -->
             <td class="cell0"></td> <!--Country of Origin -->
-            <td class="cell0">{{ $detail['qty'] }}</td> <!--Net Weight (kg) -->
+            <td class="cell0">{{ $detail['weight'] }}</td> <!--Net Weight (kg) -->
             <td class="cell0">{{ number_format($detail['price']) }}</td>
         </tr>
     @endforeach
