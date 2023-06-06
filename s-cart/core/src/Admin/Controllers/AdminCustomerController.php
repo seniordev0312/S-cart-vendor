@@ -3,6 +3,7 @@ namespace SCart\Core\Admin\Controllers;
 
 use SCart\Core\Admin\Controllers\RootAdminController;
 use SCart\Core\Front\Models\ShopCountry;
+use SCart\Core\Front\Models\ShopProvince;
 use SCart\Core\Front\Models\ShopLanguage;
 use SCart\Core\Admin\Models\AdminCustomer;
 use SCart\Core\Front\Models\ShopCustomField;
@@ -198,6 +199,7 @@ class AdminCustomerController extends RootAdminController
             'icon' => 'fa fa-edit',
             'customer' => $customer,
             'countries' => (new ShopCountry)->getCodeAll(),
+            'provinces' => (new ShopProvince)->getCodeAll(),
             'addresses' => $customer->addresses,
             'url_action' => sc_route_admin('admin_customer.edit', ['id' => $customer['id']]),
             'customFields'         => (new ShopCustomField)->getCustomField($type = 'shop_customer'),
@@ -229,6 +231,11 @@ class AdminCustomerController extends RootAdminController
                 ->withErrors($validator)
                 ->withInput();
         }
+        $array = [
+            'province' => $data['province']
+        ];
+
+        $dataMapping['dataUpdate']['province'] =  $data['province'];
 
         AdminCustomer::updateInfo($dataMapping['dataUpdate'], $id);
 

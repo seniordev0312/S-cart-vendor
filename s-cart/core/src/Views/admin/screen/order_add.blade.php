@@ -228,7 +228,7 @@
                             <div class="form-group row {{ $errors->has('country') ? ' text-red' : '' }}">
                                 <label for="country" class="col-sm-2 asterisk col-form-label">{{ sc_language_render('order.country') }}</label>
                                 <div class="col-sm-8">
-                                    <select class="form-control country " style="width: 100%;" name="country" >
+                                    <select class="form-control country " style="width: 100%;" name="country" id="country">
                                         <option value=""></option>
                                         @foreach ($countries as $k => $v)
                                             <option value="{{ $k }}" {{ (old('country') ==$k) ? 'selected':'' }}>{{ $v }}</option>
@@ -242,6 +242,10 @@
                                 </div>
                             </div>
                         @endif
+
+                        <div class="form-group row" id="province_child">
+
+                            </div>
 
                         @if (sc_config_admin('customer_phone'))
                             <div class="form-group row  {{ $errors->has('phone') ? ' text-red' : '' }}">
@@ -409,7 +413,7 @@
 
 $(document).ready(function() {
 //Initialize Select2 Elements
-$('.select2').select2()
+$('.select2').select2();
 });
 $('[name="customer_id"]').change(function(){
     addInfo();
@@ -417,6 +421,8 @@ $('[name="customer_id"]').change(function(){
 $('[name="currency"]').change(function(){
     addExchangeRate();
 });
+
+
 
 function addExchangeRate(){
     var currency = $('[name="currency"]').val();
@@ -426,6 +432,8 @@ function addExchangeRate(){
 
 function addInfo(){
     id = $('[name="customer_id"]').val();
+    var country = "";
+
     if(id){
        $.ajax({
             url : '{{ sc_route_admin('admin_order.user_info') }}',
@@ -439,6 +447,7 @@ function addInfo(){
             },
             success: function(result){
                 var returnedData = JSON.parse(result);
+                country = returnedData.country;
                 $('[name="email"]').val(returnedData.email);
                 $('[name="first_name"]').val(returnedData.first_name);
                 $('[name="last_name"]').val(returnedData.last_name);
@@ -451,14 +460,55 @@ function addInfo(){
                 $('[name="company"]').val(returnedData.company);
                 $('[name="postcode"]').val(returnedData.postcode);
                 $('[name="country"]').val(returnedData.country).change();
+                selectCountry();
                 $('#loading').hide();
             }
         });
        }else{
             $('#form-main').reset();
        }
+       
+    }
 
+const abbreviatons_province = [
+    'AB', 'BC', 'MB', 'NB', 'NL', 'NS', 'ON', 'PE', 'QC', 'SK', 'NT', 'NU', 'YT'
+]
+
+function selectCountry() {
+    var selectedCountry = document.getElementById('country').value;
+
+    if(selectedCountry == 'CA') {
+        const province_child = document.getElementById('province_child');
+
+        // label
+        const label = document.createElement("label");
+        const label_value = document.createTextNode("Province");
+        label.setAttribute('class', 'col-sm-2 col-form-label');
+        label.appendChild(label_value);
+        province_child.appendChild(label);
+
+        // main div
+        const mainDiv = document.createElement("div");
+        mainDiv.setAttribute('class', 'col-sm-8');
+
+        // select
+        const selectTag = document.createElement("select");
+        selectTag.setAttribute('class', 'form-control province w-100');
+        selectTag.setAttribute('name', 'province');
+
+        // options
+        for(let i = 0; i < abbreviatons_province.length; i++) {
+            let optionTag = document.createElement('option');
+            let optionTagText =  document.createTextNode(abbreviatons_province[i]);
+            optionTag.appendChild(optionTagText);
+            selectTag.appendChild(optionTag);
+        }
+
+        mainDiv.appendChild(selectTag);
+        province_child.appendChild(mainDiv);
+
+
+    }
 }
-
 </script>
 @endpush

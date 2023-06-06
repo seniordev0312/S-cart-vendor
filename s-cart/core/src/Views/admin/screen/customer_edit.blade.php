@@ -250,7 +250,7 @@
                                 <label for="country"
                                     class="col-sm-2 col-form-label">{{ sc_language_render('customer.country') }}</label>
                                 <div class="col-sm-8">
-                                    <select class="form-control country" style="width: 100%;" name="country">
+                                    <select class="form-control country" style="width: 100%;" name="country" id="country" onChange="selectCountry()">
                                         <option>__{{ sc_language_render('customer.country') }}__</option>
                                         @foreach ($countries as $k => $v)
                                         <option value="{{ $k }}" {{ ($country == $k) ? 'selected':'' }}>{{ $v }}</option>
@@ -264,7 +264,11 @@
                                 </div>
                             </div>
                             @endif
-    
+                            
+                            <div class="form-group row" id="province_child">
+
+                            </div>
+
                             @if (sc_config_admin('customer_sex'))
                             @php
                             $sex = old('sex', $customer['sex'] ?? 0);
@@ -499,6 +503,55 @@
               }
           });
     });
+
+    $( document ).ready(function() {
+        selectCountry();
+    });
+
+    const abbreviatons_province = [
+        'AB', 'BC', 'MB', 'NB', 'NL', 'NS', 'ON', 'PE', 'QC', 'SK', 'NT', 'NU', 'YT'
+    ]
+
+    function selectCountry() {
+        var selectedCountry = document.getElementById('country').value;
+        console.log(selectedCountry);
+
+        if(selectedCountry == 'CA') {
+            console.log('1111======');
+            const province_child = document.getElementById('province_child');
+
+            // label
+            const label = document.createElement("label");
+            const label_value = document.createTextNode("Province");
+            label.setAttribute('class', 'col-sm-2 col-form-label');
+            label.appendChild(label_value);
+            province_child.appendChild(label);
+
+            // main div
+            const mainDiv = document.createElement("div");
+            mainDiv.setAttribute('class', 'col-sm-8');
+
+            // select
+            const selectTag = document.createElement("select");
+            selectTag.setAttribute('class', 'form-control province w-100');
+            selectTag.setAttribute('name', 'province');
+
+            // options
+            for(let i = 0; i < abbreviatons_province.length; i++) {
+                let optionTag = document.createElement('option');
+                let optionTagText =  document.createTextNode(abbreviatons_province[i]);
+                optionTag.appendChild(optionTagText);
+                selectTag.appendChild(optionTag);
+            }
+
+            mainDiv.appendChild(selectTag);
+            province_child.appendChild(mainDiv);
+
+
+        }
+    }
+
+    
   </script>
 
 @endpush

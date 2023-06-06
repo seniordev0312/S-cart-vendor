@@ -17,7 +17,7 @@
 <td colspan="2" class="cell1"><p><span style="font-size:13px;line-height:16px;">&nbsp;</span>Receiver Name &amp; Address / Nom et adresse du destinataire</p>
 <br>
 <span class="text-sm text-grey-m2 align-middle">&nbsp;&nbsp;{{ $name }}<br/></span>
-<i class="fas fa-map-marker-alt"></i>&nbsp;&nbsp;{{ $address1 }},<br/>&nbsp;&nbsp;{{ $address2 }},<br/>&nbsp;&nbsp;{{ $address3 }}{{ $country }},
+<i class="fas fa-map-marker-alt"></i>&nbsp;&nbsp;{{ $address1 }},<br/>&nbsp;&nbsp;{{ $address2 }},<br/>&nbsp;&nbsp;{{ $address3 }}{{$province . ', '}}{{ $country }}
 </tr>
 <tr>
 <td class="cell2"><p style="font-size:13px;line-height:16px;">&nbsp;<span style="font-size:12px;line-height:13.5px;">Contact Name / Nom de la personne - {{$company}}</span></p></td>
@@ -75,7 +75,7 @@
     @endforeach
 <tr>
 <td colspan="2" class="cell9"><p style="margin:0 0 0 504px;font-family:Arial;font-size:13px;line-height:16px;"><span style="font-family:arial;font-size:16px;line-height:18px;font-weight:bold;">&nbsp;</span><span style="font-family:arial;font-size:16px;line-height:18px;font-weight:bold;">&nbsp; TOTAL</span></p></td>
-<td colspan="3" class="cell10"><p style="margin:0 0 0 180px;">Currency &amp; Value</p>
+<td colspan="3" class="cell10"><p style="margin:0 0 0 180px;">{{$tax}} Currency &amp; Value</p>
 <p style="margin:0 0 0 180px;font-family:Arial;font-size:13px;line-height:16px;"><span style="font-family:arial;font-size:11px;line-height:12px;">Device et valeur</span></p></td>
 <td class="cell11"><p style="font-size:13px;line-height:16px;">{{$total_price}}</p></td>
 </tr>
@@ -83,7 +83,7 @@
 <table style="position:absolute;left:20px;top:0px;width:968px;height:56px;z-index:2;" id="Table3">
 <tr>
 <td class="cell0"><p style="font-size:13px;line-height:16px;">&nbsp;</p>
-<p style="font-size:21px;line-height:24.5px;font-weight:bold;">COMMERCIAL INVOICE /CN23&nbsp;&nbsp; &nbsp;&nbsp; FACTURE COMMERCIAL / CN23</p></td>
+<p style="font-size:21px;line-height:24.5px;font-weight:bold;">COMMERCIAL INVOICE /&nbsp;&nbsp; &nbsp;&nbsp; FACTURE COMMERCIAL</p></td>
 </tr>
 </table>
 <table style="position:absolute;left:27px;top:1094px;width:959px;height:145px;z-index:3;" id="Table4">

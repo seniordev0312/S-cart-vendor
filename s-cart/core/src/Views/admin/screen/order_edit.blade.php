@@ -70,9 +70,15 @@
 
                     @if (sc_config_admin('customer_country'))
                     <tr>
-                      <td class="td-title">{{ sc_language_render('order.country') }}:</td><td><a href="#" class="updateInfoRequired" data-name="country" data-type="select" data-source ="{{ json_encode($country) }}" data-pk="{{ $order->id }}" data-url="{{ route("admin_order.update") }}" data-title="{{ sc_language_render('order.country') }}" data-value="{!! $order->country !!}"></a></td>
+                      <td class="td-title">{{ sc_language_render('order.country') }}:</td>
+                      <td>
+                        <a href="#" class="updateInfoRequired" data-name="country" data-type="select" data-source ="{{ json_encode($country) }}" data-pk="{{ $order->id }}" data-url="{{ route("admin_order.update") }}" data-title="{{ sc_language_render('order.country') }}" data-value="{!! $order->country !!}"></a>
+                      </td>
                     </tr>
                     @endif
+                    <tr id="province_child">
+                  
+                    </tr>
 
                 </table>
             </div>
@@ -602,13 +608,51 @@ function deleteItem(id){
     if ($.support.pjax) {
       $.pjax.defaults.timeout = 2000; // time in milliseconds
     }
-
+    selectCountry();
   });
 
   function order_print(){
     $('.not-print').hide();
     window.print();
     $('.not-print').show();
+  }
+
+  const abbreviatons_province = [
+        'AB', 'BC', 'MB', 'NB', 'NL', 'NS', 'ON', 'PE', 'QC', 'SK', 'NT', 'NU', 'YT'
+    ]
+
+  function selectCountry() {
+      var selectedCountry = "<?php echo $order->country?>";
+
+      if(selectedCountry == 'CA') {
+          console.log('1111======');
+          const province_child = document.getElementById('province_child');
+
+          // first td
+          const first_td = document.createElement("td");
+          first_td.setAttribute('class', 'td-title');
+          const first_td_value = document.createTextNode("province");
+          first_td.appendChild(first_td_value);
+          province_child.appendChild(first_td);
+
+          // second td
+          const second_td = document.createElement("td");
+
+          // a
+          const second_td_a = document.createElement("a");
+          second_td_a.setAttribute('href', '#');
+          second_td_a.setAttribute('class', 'updateInfoRequired editable editable-click');
+          second_td_a.setAttribute('data-name', 'province');
+          second_td_a.setAttribute('data-type', 'select')
+          second_td_a.setAttribute('data-source', abbreviatons_province);
+          second_td_a.setAttribute('data-url', '<?php echo route("admin_order.update") ?>');
+          second_td_a.setAttribute('data-title', 'Province');
+          second_td_a.setAttribute('data-value', '<?php echo $order->province ?>');
+
+          second_td.appendChild(second_td_a);
+
+          province_child.appendChild(second_td);
+      }
   }
 </script>
 

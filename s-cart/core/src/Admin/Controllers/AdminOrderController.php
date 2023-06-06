@@ -8,6 +8,7 @@ use SCart\Core\Front\Models\ShopCountry;
 use SCart\Core\Front\Models\ShopCurrency;
 use SCart\Core\Front\Models\ShopOrderDetail;
 use SCart\Core\Front\Models\ShopOrderStatus;
+use SCart\Core\Front\Models\ShopProvince;
 use SCart\Core\Front\Models\ShopPaymentStatus;
 use SCart\Core\Front\Models\ShopShippingStatus;
 use SCart\Core\Admin\Models\AdminCustomer;
@@ -16,6 +17,7 @@ use SCart\Core\Admin\Models\AdminProduct;
 use SCart\Core\Front\Models\ShopOrderTotal;
 use SCart\Core\Front\Models\ShopOrder;
 use SCart\Core\Front\Models\ShopProduct;
+use SCart\Core\Admin\Models\TaxService;
 use Validator;
 
 class AdminOrderController extends RootAdminController
@@ -28,6 +30,7 @@ class AdminOrderController extends RootAdminController
     public $statusPaymentMap;
     public $currency;
     public $country;
+    public $province;
     public $countryMap;
     public $shopProduct;
 
@@ -37,6 +40,7 @@ class AdminOrderController extends RootAdminController
         $this->statusOrder    = ShopOrderStatus::getIdAll();
         $this->currency       = ShopCurrency::getListActive();
         $this->country        = ShopCountry::getCodeAll();
+        $this->province        = ShopProvince::getCodeAll();
         $this->statusPayment  = ShopPaymentStatus::getIdAll();
         $this->shopProduct    = ShopProduct::getIdAll();
         $this->statusShipping = ShopShippingStatus::getIdAll();   
@@ -365,6 +369,7 @@ class AdminOrderController extends RootAdminController
             'email'           => $data['email'],
             'comment'         => $data['comment'],
             'number_package'  => $data['number_package'],
+            'province'        => $data['province'],
         ];
         $dataCreate = sc_clean($dataCreate, [], true);
         $order = AdminOrder::create($dataCreate);
@@ -753,6 +758,19 @@ class AdminOrderController extends RootAdminController
         $action = request('action') ?? '';
         $order = AdminOrder::getOrderAdmin($orderId);
         $totalOrder = AdminOrder::getTotalOrderdata();
+        $tax = (new TaxService)->calculateTax($order['province'], $order['balance']);
+
+        foreach($this->country as $key => $country_list) {
+            if($key == $order['country']) {
+                $order_country = $country_list;
+            }
+        }
+
+        foreach($this->province as $key => $province_list) {
+            if($key == $order['province']) {
+                $order_province = $province_list;
+            }
+        }
 
         if ($order) {
             $data                    = array();
@@ -779,9 +797,11 @@ class AdminOrderController extends RootAdminController
             $data['balance']         = $order['balance'];
             $data['other_fee']       = $order['other_fee'] ?? 0;
             $data['comment']         = $order['comment'];
-            $data['country']         = $order['country'];
+            $data['country']         = $order_country;
             $data['number_package']  = $order['number_package'];
             $data['id']              = $order->id;
+            $data['tax']             = $tax;
+            $data['province']        = $order_province;
             $data['details'] = [];
 
             $attributesGroup =  ShopAttributeGroup::pluck('name', 'id')->all();
